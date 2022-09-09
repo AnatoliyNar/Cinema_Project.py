@@ -1,0 +1,27 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+<h1>Кинопрокат "Кинохит"</h1>
+
+  <p>Добро пожаловать в <em>"Кинохит"!</em> </p>
+
+<form>
+  <input type="search">
+  <input type="submit" value="Найти фильм">
+</form>
+
+<h2>Наш каталог</h2>
+<body style="background-image: url(img/3.jpg); background-repeat: no-repeat; background-position: top center">
+
+
+  <p>В нашем кинопрокате имеется следующее количество фильмов:</p>
+  <ul>
+    <li><strong>Фильмы:</strong> {{ num_movies }}</li>
+    <li><strong>Копии:</strong> {{ num_instances }}</li>
+    <li><strong>Доступные копии:</strong> {{ num_instances_available }}</li>
+    <li><strong>Режиссёры:</strong> {{ num_directors }}</li>
+  </ul>
+</body>
+<p>Вы посетили эту страницу {{ num_visits }}{% if num_visits == 1 %} раз{% else %} раз{% endif %}.</p>
+
+{% endblock %}
