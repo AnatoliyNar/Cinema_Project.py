@@ -1,0 +1,53 @@
+body {
+    background: #2c2c2c;
+    background-image:url('3.png');
+}
+
+a {
+    font-size: 13px;
+}
+
+li, p, h2 {
+    font-size: 15px;
+    color: white;
+}
+
+h1 {
+    color: white;
+}
+
+aside {
+    float: left;
+    background: #181818;
+    width: 15%;
+    padding: 1.5%;
+    height: 100vh;
+    color: #ffffff;
+    border-right: 15px solid #4d4d4d;
+}
+
+.logo {
+    font-size: 25px;
+
+}
+
+aside img {
+    width: 50px;
+    float: left;
+}
+
+aside logo {
+    font-size: 10px;
+    margin-left: 10px;
+    font-width: bold;
+
+}
+
+.sidebar-nav {
+    margin-top: 60px;
+    padding: 50%;
+    list-style: no
+    ne;
+}
+
+

@@ -74,7 +74,7 @@ class DirectorAdmin(admin.ModelAdmin):
 
 def display_genre(self):
     return ', '.join([ genre.name for genre in self.genre.all()[:3] ])
-display_genre.short_description = 'Genre'
+    display_genre.short_description = 'Genre'
 
 class MoviesInstanceInline(admin.TabularInline):
     model = MovieInstance
@@ -89,7 +89,7 @@ def movie_detail_view(request,pk):
     return render(
         request,
         'catalog/movie_detail.html',
-        context={'movie':movie_id,}
+        context={'movie': movie_id,}
     )
 
 class Meta:

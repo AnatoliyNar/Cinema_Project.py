@@ -2,6 +2,7 @@ from django.shortcuts import render
 from .models import Movie, Director, MovieInstance, Genre
 from django.views import generic
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.http import HttpResponse
 
 def index(request):
     num_movies=Movie.objects.all().count()
@@ -24,6 +25,13 @@ class MovieListView(generic.ListView):
 
 class MovieDetailView(generic.DetailView):
     model = Movie
+    template_name = 'catalog/movie_detail.html'
+
+class MovieDirectorView(generic.DetailView):
+    model = Movie
+    template_name = 'catalog/director_detail.html'
+
+
 
 
 
@@ -53,17 +61,17 @@ def renew_movie_librarian(request, pk):
 
         form = RenewMovieForm(request.POST)
 
-        if form.is_valid():
-            movie_inst.due_back = form.cleaned_data['renewal_date']
-            movie_inst.save()
+    if form.is_valid():
+        movie_inst.due_back = form.cleaned_data['renewal_date']
+        movie_inst.save()
 
-            return HttpResponseRedirect(reverse('all-borrowed') )
+        return HttpResponseRedirect(reverse('all-borrowed') )
 
     else:
         proposed_renewal_date = datetime.date.today() + datetime.timedelta(weeks=3)
         form = RenewMovieForm(initial={'renewal_date': proposed_renewal_date,})
 
-    return render(request, 'catalog/movie_renew_librarian.html', {'form': form, 'movieinst':movie_inst})
+        return render(request, 'catalog/movie_renew_librarian.html', {'form': form, 'movieinst':movie_inst})
 
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy

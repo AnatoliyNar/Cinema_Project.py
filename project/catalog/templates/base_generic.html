@@ -1,67 +1,89 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
 
-  {% block title %}<title>Кинопрокат</title>{% endblock %}
+  {% block title %}
+    <title>Кинопрокат</title>
+    <link rel="shortcut icon" href="img/movie.ico" type="image/x-icon">
+
+  {% endblock %}
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://kit.fontawesome.com/1b524254c1.js" crossorigin="anonymous"></script>
 
   {% load static %}
-  <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="{% static 'css\catalog.css' %}" type='text/css'>
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+
+  <style>
+
+    .pointer  { cursor: pointer; }
+
+  </style>
 </head>
 
 <body>
 
-
   <div class="container-fluid">
 
     <div class="row">
-        <div src="{% static project.image %} " alt="" width="100%" >
+        <div src="{% static project.image %} " alt="" width="25%" > </div>
 
-        </div>
-      <div class="col-sm-2">
-      {% block scidebar %}
-      <ul class="sidebar-nav">
-          <li><a href="{% url 'index' %}">Главная</a>
-          </li>
-          <li><a href="{% url 'movies' %}">Все фильмы</a></li>
-          <li><a href="">Все режиссёры</a></li>
-      </ul>
-      {% if user.is_authenticated %}
-     <li>Пользователь: {{ user.get_username }}</li>
-     <li><a href="{% url 'my-borrowed' %}">Мои взятые фильмы</a></li>
-     <li><a href="{% url 'logout'%}?next={{request.path}}">Выйти</a></li>
-   {% else %}
-     <li><a href="{% url 'login'%}?next={{request.path}}">Войти</a></li>
-   {% endif %}
-      </ul>
-     {% endblock %}
-   </div>
+    </div>
+
       <div class="col-sm-10 ">
-      {% block content %}{% endblock %}
+      <aside>
+          <img src="{% static 'img\logo.png' %}" alt="Лого">
+          <span class="logo"> Кинопрокат </span>
+          <div class="col-sm-2">
+      {% block scidebar %}
+
+        <a href="{% url 'index' %}"><i class="fa-solid fa-house" class="pointer"></i>Главная</a>
+        <a href="{% url 'movies' %}"><i class="fa-solid fa-film" class="pointer"></i> Все фильмы</a>
+        <a href=""><i class="fa-solid fa-video" class="pointer"></i><i>Все режиссёры</a>
+
+
+              <ul class="sidebar-nav">
+             {% if user.is_authenticated %}
+        <big>Пользователь: {{ user.get_username }}</big>
+        <a href="{% url 'my-borrowed' %}"><li><i class="fa-solid fa-cassette-vhs" class="pointer"></i>Мои взятые фильмы</li></a>
+        <a href="{% url 'logout'%}?next={{request.path}}"><li><i class="fa-solid fa-house-person-leave" class="pointer"></i>Выйти</li></a>
+        {% else %}
+        <li><a href="{% url 'login'%}?next={{request.path}}" class="pointer">Войти</a></li>
+            {% endif %}
+                </ul>
+            {% endblock %}
+      </aside>
+      <main>
+        {% block content %}
+        {% endblock %}
+      </main>
 
       {% block pagination %}
       {% if is_paginated %}
       <div class="pagination">
           <span class="page-links">
               {% if page_obj.has_previous %}
-                  <a href="{{ request.path }}?page={{ page_obj.previous_page_number }}">Предыдущая</a>
+                  <a href="{{ request.path }}?page={{ page_obj.previous_page_number }}"><i class="fa-solid fa-arrow-left" class="pointer"></i>Предыдущая</a>
               {% endif %}
               <span class="page-current">
                   Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
               </span>
               {% if page_obj.has_next %}
-                  <a href="{{ request.path }}?page={{ page_obj.next_page_number }}">Следующая</a>
+                  <a href="{{ request.path }}?page={{ page_obj.next_page_number }}"><i class="fa-solid fa-arrow-right" class="pointer"></i>Следующая</a>
               {% endif %}
           </span>
       </div>
+  </div>
   {% endif %}
 {% endblock %}
       </div>
     </div>
-  </div>
+
 </body>
 </html>

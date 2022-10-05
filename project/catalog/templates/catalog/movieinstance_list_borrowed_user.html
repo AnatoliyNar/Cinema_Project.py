@@ -8,12 +8,13 @@
 
       {% for movieinst in movieinstance_list %}
       <li class="{% if movieinst.is_overdue %}text-danger{% endif %}">
+
         <a href="{% url 'movie-detail' movieinst.movie.pk %}">{{movieinst.movie.title}}</a> ({{ movieinst.due_back }})
       </li>
       {% endfor %}
     </ul>
 
     {% else %}
-      <p>Все фильмы доступны.</p>
+      <p>У вас нет фильмов.</p>
     {% endif %}
 {% endblock %}
